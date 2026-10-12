@@ -1,0 +1,14 @@
+	ORG	0000H
+	LJMP	MAIN
+
+	ORG	0030H
+MAIN:	MOV	P1,#11111111B		;LED-1~LED-8全灭
+	MOV 	TMOD,#00000101B		;T0计数器初始化,方式1计数
+	MOV 	TH0,#00H    		;T0的计数初值设为0  
+	MOV 	TL0,#00H     
+	SETB 	TR0			;T0计数器开始计数
+AGAIN:	MOV	A,TL0			;读取T0计数器的低8位计数值
+	CPL	A
+	MOV	P1,A
+	SJMP	AGAIN
+	END
